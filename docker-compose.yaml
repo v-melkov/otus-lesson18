@@ -1,0 +1,21 @@
+version:       '3'
+
+services:
+  php-fpm:
+    image:     valerosha/otus-lessons:php-fpm
+    build:
+      context: ./php-fpm
+    volumes:
+      - ./src:/var/lib/nginx/html
+
+  nginx:
+    image:     valerosha/otus-lessons:nginx
+    build:
+      context: ./nginx
+    volumes:
+      - ./src:/var/lib/nginx/html
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - php-fpm
